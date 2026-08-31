@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa 27 — Projeto demonstrativo NarifyWeb</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FBF3E6;
+    --card: #FFFFFF;
+    --ink: #322419;
+    --ink-soft: #7A6A57;
+    --wine: #6E2A34;
+    --wine-deep: #531F27;
+    --olive: #6C6E45;
+    --line: #E7D9C4;
+    --serif: 'Cormorant', Georgia, serif;
+    --sans: 'Karla', sans-serif;
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.6; -webkit-font-smoothing:antialiased; }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  .demo-flag{ background:var(--wine); color:#FBF3E6; text-align:center; font-size:0.82rem; font-weight:600; padding:9px 14px; }
+  .wrap{ max-width:1100px; margin:0 auto; padding:0 28px; }
+
+  header.site{ position:sticky; top:0; z-index:20; background:rgba(251,243,230,0.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); }
+  .site-inner{ display:flex; align-items:center; justify-content:space-between; padding:20px 0; }
+  .brand{ font-family:var(--serif); font-size:1.7rem; font-style:italic; font-weight:600; color:var(--wine); }
+  nav.links{ display:flex; gap:28px; }
+  nav.links a{ font-size:0.86rem; color:var(--ink-soft); font-weight:500; transition:color .2s; }
+  nav.links a:hover{ color:var(--wine); }
+  .btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:24px; font-size:0.86rem; font-weight:700; transition:all .2s; }
+  .btn-wine{ background:var(--wine); color:#fff; }
+  .btn-wine:hover{ background:var(--wine-deep); }
+  .btn-outline{ border:1px solid var(--wine); color:var(--wine); }
+  .btn-outline:hover{ background:rgba(110,42,52,0.08); }
+
+  .hero{ padding:70px 0 0; }
+  .hero-grid{ display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center; padding-bottom:70px; }
+  .eyebrow{ color:var(--wine); font-size:0.8rem; letter-spacing:0.06em; font-weight:700; text-transform:uppercase; margin-bottom:16px; }
+  h1.hero-title{ font-family:var(--serif); font-style:italic; font-size:clamp(2.6rem,5.4vw,4rem); line-height:1.08; margin:0 0 20px; color:var(--wine); font-weight:600; }
+  .hero-text p{ color:var(--ink-soft); font-size:1.05rem; max-width:44ch; margin-bottom:30px; }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+  .hero-img{ position:relative; border-radius:12px 120px 12px 12px; overflow:hidden; aspect-ratio:4/5; }
+  .hero-img img{ width:100%; height:100%; object-fit:cover; }
+
+  section{ padding:76px 0; border-top:1px solid var(--line); }
+  .head{ max-width:600px; margin-bottom:44px; }
+  h2{ font-family:var(--serif); font-style:italic; font-size:clamp(1.9rem,3.6vw,2.6rem); margin:0 0 12px; color:var(--wine); font-weight:600; }
+  .head p{ color:var(--ink-soft); }
+
+  .menu-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px 60px; }
+  .menu-item{ display:flex; justify-content:space-between; gap:16px; padding-bottom:18px; border-bottom:1px dashed var(--line); }
+  .menu-item h3{ font-family:var(--serif); font-style:italic; font-size:1.3rem; margin:0 0 6px; font-weight:600; }
+  .menu-item p{ color:var(--ink-soft); font-size:0.88rem; max-width:34ch; }
+  .menu-price{ font-family:var(--serif); font-size:1.25rem; color:var(--wine); font-weight:600; white-space:nowrap; }
+
+  .gallery{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .gallery img{ width:100%; height:230px; object-fit:cover; border-radius:10px; }
+
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
+  .about-grid img{ border-radius:10px; aspect-ratio:5/4; object-fit:cover; }
+  .about-grid p{ color:var(--ink-soft); margin-bottom:16px; }
+
+  .info-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; }
+  .info-block h3{ font-family:var(--serif); font-style:italic; font-size:1.25rem; margin:0 0 16px; color:var(--wine); }
+  .hours-row{ display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--line); font-size:0.92rem; }
+  .hours-row span:last-child{ color:var(--ink-soft); }
+  .addr{ color:var(--ink-soft); line-height:1.8; }
+
+  .cta-band{ text-align:center; background:var(--wine); color:#fff; border-top:none; }
+  .cta-band h2{ color:#fff; max-width:20ch; margin:0 auto 14px; }
+  .cta-band p{ color:rgba(255,255,255,0.75); max-width:44ch; margin:0 auto 30px; }
+  .cta-band .btn-wine{ background:#fff; color:var(--wine); }
+  .cta-band .btn-wine:hover{ background:#F3E7D5; }
+  .cta-band .btn-outline{ border-color:rgba(255,255,255,0.5); color:#fff; }
+  .cta-band .btn-outline:hover{ background:rgba(255,255,255,0.12); }
+  .cta-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+  footer{ border-top:1px solid var(--line); padding:40px 0; }
+  .foot-inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .foot-links{ display:flex; gap:22px; }
+  .foot-links a{ color:var(--ink-soft); font-size:0.88rem; }
+  .foot-links a:hover{ color:var(--wine); }
+  .foot-small{ color:var(--ink-soft); font-size:0.78rem; opacity:0.7; }
+
+  @media (max-width: 860px){
+    nav.links{ display:none; }
+    .hero-grid, .about-grid, .info-grid{ grid-template-columns:1fr; }
+    .hero-img{ order:-1; }
+    .menu-grid{ grid-template-columns:1fr; }
+    .gallery{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 480px){
+    .gallery{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-flag">Projeto demonstrativo NarifyWeb — este não é um negócio real</div>
+
+<header class="site">
+  <div class="wrap site-inner">
+    <div class="brand">Casa 27</div>
+    <nav class="links">
+      <a href="#cardapio">Cardápio</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn-wine" href="https://wa.me/5545991142749?text=Ol%C3%A1%20Casa%2027%2C%20gostaria%20de%20fazer%20um%20pedido." target="_blank" rel="noopener">Fazer pedido</a>
+  </div>
+</header>
+
+<section class="hero" style="border-top:none;">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow">Cozinha autoral</p>
+      <h1 class="hero-title">Sabor de casa,<br>mesa de festa.</h1>
+      <p>Pratos preparados com ingredientes frescos e o cuidado de uma receita de família. Venha provar ou peça no conforto da sua casa.</p>
+      <div class="hero-actions">
+        <a class="btn btn-wine" href="https://wa.me/5545991142749?text=Ol%C3%A1%20Casa%2027%2C%20gostaria%20de%20fazer%20um%20pedido." target="_blank" rel="noopener">Fazer pedido</a>
+        <a class="btn btn-outline" href="#cardapio">Ver cardápio</a>
+      </div>
+    </div>
+    <div class="hero-img"><img src="https://picsum.photos/seed/casa27-hero-dish/800/1000" alt="Prato principal da Casa 27"></div>
+  </div>
+</section>
+
+<section id="cardapio">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Cardápio</p>
+      <h2>Os pratos da casa.</h2>
+      <p>Uma seleção dos favoritos, sempre preparados na hora do pedido.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <div>
+          <h3>Risoto de funghi</h3>
+          <p>Arroz arbóreo, funghi secchi e finalização com parmesão.</p>
+        </div>
+        <span class="menu-price">R$ 58</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <h3>Filé ao molho madeira</h3>
+          <p>Filé mignon grelhado, molho madeira e purê de batatas.</p>
+        </div>
+        <span class="menu-price">R$ 72</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <h3>Salmão grelhado</h3>
+          <p>Salmão no ponto, legumes salteados e molho de ervas.</p>
+        </div>
+        <span class="menu-price">R$ 68</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <h3>Nhoque da casa</h3>
+          <p>Nhoque de batata artesanal com molho sugo e manjericão fresco.</p>
+        </div>
+        <span class="menu-price">R$ 49</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <h3>Bruschetta especial</h3>
+          <p>Pão italiano, tomate confit, burrata e manjericão.</p>
+        </div>
+        <span class="menu-price">R$ 34</span>
+      </div>
+      <div class="menu-item">
+        <div>
+          <h3>Petit gâteau</h3>
+          <p>Bolo de chocolate quente com sorvete de creme.</p>
+        </div>
+        <span class="menu-price">R$ 28</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Ambiente</p>
+      <h2>Um cantinho para cada ocasião.</h2>
+    </div>
+    <div class="gallery">
+      <img src="https://picsum.photos/seed/casa27-amb1/500/400" alt="Ambiente do restaurante">
+      <img src="https://picsum.photos/seed/casa27-amb2/500/400" alt="Prato servido">
+      <img src="https://picsum.photos/seed/casa27-amb3/500/400" alt="Preparo na cozinha">
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="wrap about-grid">
+    <img src="https://picsum.photos/seed/casa27-about/700/560" alt="Chef preparando prato na Casa 27">
+    <div>
+      <p class="eyebrow">Sobre o restaurante</p>
+      <h2>Uma cozinha com raiz de família.</h2>
+      <p>A Casa 27 nasceu da vontade de servir comida de verdade, com técnica e afeto. Cada prato é preparado na hora, com ingredientes selecionados e um toque que lembra casa.</p>
+      <p>Aberto todos os dias para almoço e jantar, com opções para comer no salão ou pedir para levar.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="wrap info-grid">
+    <div class="info-block">
+      <h3>Horário</h3>
+      <div class="hours-row"><span>Todos os dias</span><span>12h às 15h</span></div>
+      <div class="hours-row"><span>Jantar</span><span>19h às 23h</span></div>
+      <div class="hours-row"><span>Segunda-feira</span><span>Fechado</span></div>
+    </div>
+    <div class="info-block">
+      <h3>Endereço</h3>
+      <p class="addr">Avenida das Cataratas, 27<br>Foz do Iguaçu, PR<br><br>Reservas e pedidos direto pelo WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Bateu a fome?</h2>
+    <p>Faça seu pedido agora ou reserve uma mesa para hoje.</p>
+    <div class="cta-actions">
+      <a class="btn btn-wine" href="https://wa.me/5545991142749?text=Ol%C3%A1%20Casa%2027%2C%20gostaria%20de%20fazer%20um%20pedido." target="_blank" rel="noopener">Fazer pedido</a>
+      <a class="btn btn-outline" href="https://instagram.com/narifyweb" target="_blank" rel="noopener">Ver Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="brand" style="font-size:1.2rem;">Casa 27</div>
+    <div class="foot-links">
+      <a href="https://wa.me/5545991142749" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://instagram.com/narifyweb" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:18px;">
+    <span class="foot-small">Projeto demonstrativo criado pela NarifyWeb — narifyweb.com</span>
+  </div>
+</footer>
+
+</body>
+</html>
